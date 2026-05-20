@@ -1,0 +1,22 @@
+/* App.css */
+.back-button {
+  margin: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #4a3525;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out, transform 0.1s;
+}
+
+/* 마우스를 올렸을 때 더 진해지는 효과 추가 */
+.back-button:hover {
+  background-color: #35251a;
+}
+
+/* 클릭했을 때 살짝 눌리는 느낌 추가 */
+.back-button:active {
+  transform: scale(0.98);
+}

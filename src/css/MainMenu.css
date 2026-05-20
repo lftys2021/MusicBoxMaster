@@ -1,0 +1,110 @@
+/* MainMenu.css */
+
+/* 전체 컨테이너 */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4eae1; /* 부드럽고 따뜻한 미색 배경 */
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* 상단 헤더 및 타이틀 */
+.menu-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.menu-main-title {
+  font-size: 3rem;
+  color: #4a3525; /* 짙은 우드톤 갈색 */
+  margin: 0 0 10px 0;
+  font-family: "Georgia", serif; /* 클래식한 서체 느낌 */
+  letter-spacing: 2px;
+}
+
+.menu-sub-title {
+  font-size: 1.1rem;
+  color: #8a7360;
+  margin: 0;
+}
+
+/* 중앙 오르골 이미지 컨테이너 (애니메이션 적용) */
+.menu-image-container {
+  margin-bottom: 50px;
+  align-items: center;
+  animation: floating 3s ease-in-out infinite; /* 3초 주기로 부드럽게 무한 반복 */
+}
+
+.menu-image-placeholder {
+  width: 180px;
+  height: 180px;
+  background-color: #d9c5b2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.5rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 하단 메뉴 레이아웃 */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* 메뉴 카드 스타일 */
+.menu-card {
+  background-color: #fff;
+  border: 1px solid #e1d0c1;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+/* 카드 호버 액션 효과 */
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(74, 53, 37, 0.1);
+}
+
+.menu-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.menu-card-title {
+  font-size: 1.3rem;
+  color: #4a3525;
+  margin: 0 0 10px 0;
+}
+
+.menu-card-desc {
+  font-size: 0.9rem;
+  color: #7a6655;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 둥둥 떠 있는 듯한 위아래 움직임 애니메이션 키프레임 정의 */
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px); /* 부드럽게 위로 정점 도달 */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
