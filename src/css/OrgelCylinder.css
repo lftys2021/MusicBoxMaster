@@ -1,0 +1,56 @@
+/* OrgelCylinder.css */
+
+/* 오르골 테이프 전체 뷰포트 구역 */
+.orgel-cylinder-viewport {
+    position: relative;
+    width: 650px;
+    height: 180px; /* 악보보다 세로로 여유 있는 오르골 판 두께 */
+    overflow: hidden;
+    border: 4px solid #6d523b;
+    border-radius: 6px;
+    background-color: #f7f2ea; /* 악보보다 조금 더 묵직한 빈티지 종이 톤 */
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin: 0 auto;
+  }
+  
+  /* 좌측 고정 구역 (헤더) - 내부 라인용 */
+  .orgel-cylinder-viewport .cylinder-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #f7f2ea;
+    z-index: 10;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* 마디별 오르골 판이 주루룩 이어지는 기차 트랙 */
+  .orgel-cylinder-viewport .cylinder-tracks-train {
+    display: flex;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+    will-change: transform;
+  }
+  
+  /* 끊김 현상 방지용 등속도 세팅 */
+  .orgel-cylinder-viewport .cylinder-tracks-train.animated {
+    transition: transform 0.001s linear;
+  }
+  
+  /* 개별 마디 캔버스 상자 */
+  .orgel-cylinder-viewport .cylinder-box-canvas {
+    display: block;
+  }
+  
+  /* 실시간 연주 위치를 짚어주는 메인 세로 레드 라인 (가장 두껍고 선명함) */
+  .orgel-cylinder-viewport .cylinder-player-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: rgba(217, 83, 79, 0.9);
+    z-index: 5;
+    pointer-events: none;
+  }

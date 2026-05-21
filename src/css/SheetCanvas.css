@@ -1,0 +1,54 @@
+/* SheetCanvas.css */
+
+.orgel-sheet-viewport {
+    position: relative;
+    width: 650px;
+    height: 105px;
+    overflow: hidden;
+    border: 4px solid #4a3525;
+    border-radius: 6px;
+    background-color: #fbf9f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    margin: 20px auto;
+  }
+  
+  /* 💡 고정 width를 제거하고, JSX가 주입하는 style={{ width }} 값을 따르도록 유연화 */
+  .orgel-sheet-viewport .sheet-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #fbf9f5;
+    z-index: 10;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* 💡 고정 left를 제거하고, JSX의 style={{ left }} 값에 동기화 */
+  .orgel-sheet-viewport .sheet-tracks-train {
+    display: flex;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+    /* 💡 하드웨어 가속을 켜서 CPU가 아닌 GPU 연산으로 스크롤을 밀어 번쩍임을 방지합니다. */
+    will-change: transform;
+  }
+  
+  .orgel-sheet-viewport .sheet-tracks-train.animated {
+    transition: transform 0.001s linear;
+  }
+  
+  .orgel-sheet-viewport .measure-box-canvas {
+    display: block;
+  }
+  
+  /* 💡 판정선 역시 JSX의 style={{ left }} 값에 연동되도록 비워둠 */
+  .orgel-sheet-viewport .sheet-player-line {
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background-color: rgba(217, 83, 79, 0.85);
+    z-index: 5;
+    pointer-events: none;
+  }

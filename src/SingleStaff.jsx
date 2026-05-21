@@ -1,4 +1,4 @@
-// SheetCanvas.jsx
+// SingleStaff.jsx
 import React, { useEffect, useRef } from 'react';
 import { SHEET_NOTE_POSITIONS, KEY_SIGNATURES, TIME_SIGNATURES } from './js/musicConstants';
 import { MusicDrawer } from './js/SheetMusicLibrary';
@@ -30,34 +30,17 @@ function MeasureBox({ measureNotes, measureIndex, isLast, ticksPerMeasure, measu
       MusicDrawer.drawNormalBarline(ctx, measureWidth, sheetTop, sheetBottom);
     }
 
-    const paddingLeft = 24;  
-    const paddingRight = 24; 
+    const paddingLeft = 20;  
+    const paddingRight = 20; 
     const usableWidth = measureWidth - (paddingLeft + paddingRight); 
-
-    const totalBeats = 4;
-    const pixelsPerTick = usableWidth / totalBeats;
+    const pixelsPerTick = usableWidth / ticksPerMeasure;
 
     measureNotes.forEach(noteItem => {
-      //const noteX = paddingLeft + (noteItem.tick * pixelsPerTick);
+      const noteX = paddingLeft + (noteItem.tick * pixelsPerTick);
       const isRest = noteItem.type.includes('Rest');
       const posStep = isRest ? 4 : (SHEET_NOTE_POSITIONS[noteItem.note] || 4);
-      //const noteY = startY + (posStep * (lineSpacing / 2));
+      const noteY = startY + (posStep * (lineSpacing / 2));
       const isUp = posStep > 4;
-
-      // 1. tick 기반의 위치를 '박자 단위(float)'로 변환합니다. (예: 0틱->0박, 4틱->1박, 12틱->3박)
-      const beatPosition = noteItem.tick / 4; 
-      
-      // 2. 음표가 마디 안에서 한가운데 정렬된 느낌을 주도록 
-      // '음표 자체의 중심점'을 박자 칸의 중앙(half beat)에 맞춰 배치하는 보정을 해줍니다.
-      const centerOffset = pixelsPerTick / 2;
-
-      // 3. 최종 X 좌표 계산
-      const noteX = padding + (beatPosition * pixelsPerBeat) + centerOffset;
-
-      // 4. 이 Y 좌표와 X 좌표로 음표를 그립니다.
-      const noteY = getNoteY(noteItem.note); 
-      
-      
 
       if (isRest) {
         switch (noteItem.type) {
@@ -114,6 +97,31 @@ export default function SheetCanvas({ song, currentMeasure, tickPosition }) {
   const scrollOffset = (currentMeasure * measureWidth) + (tickPosition * pixelsPerTick);
   //const isMoving = tickPosition !== 0;
 
+  // SingleStaff.jsx (핵심 분기 구역만 발췌)
+
+  // ... 기본 계산 로직 (triggerX 연산 등)은 기존과 동일 ...
+
+  // 낮은음자리표를 그릴 때 음표 Y축 위치를 다르게 잡기 위한 헬퍼 공식 예시
+  const getNoteY = (note, clefType, startY, lineSpacing) => {
+    if (clefType === 'bass') {
+      // 낮은음자리표는 기준 도(C4)가 오선지 위쪽 가운뎃줄에 걸치므로 
+      // 기존 높은음자리표 포지션 데이터에서 일정 스텝만큼 offset을 더하거나 빼서 튜닝합니다.
+      const baseStep = SHEET_NOTE_POSITIONS[note] || 4;
+      return startY + ((baseStep - 12) * (lineSpacing / 2)); 
+    }
+    // 기본 높은음자리표
+    const posStep = SHEET_NOTE_POSITIONS[note] || 4;
+    return startY + (posStep * (lineSpacing / 2));
+  };
+
+  // 캔버스 렌더링 내부
+  if (clefType === 'treble') {
+    MusicDrawer.drawTrebleClef(ctx, 16, startY);
+  } else {
+    // 특수문자표에서 찾으신 𝄢 기호를 사용하거나 직접 그리기 메서드 호출!
+    MusicDrawer.drawBassClef(ctx, 16, startY); 
+  }
+  
   return (
     <div className="orgel-sheet-viewport">
       

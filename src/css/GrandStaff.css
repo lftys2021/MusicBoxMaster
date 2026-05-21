@@ -1,0 +1,23 @@
+/* GrandStaff.css */
+.grand-staff-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* 두 보표를 바짝 붙이거나 미세한 마진만 줍니다 */    
+    padding-left: 12px; /* 왼쪽에 묶음 괄호(Brace)가 들어갈 공간 */
+  }
+  
+  /* 피아노 악보 특유의 맨 왼쪽 수직 대괄호 묶음선 흉내 내기 */
+  .grand-staff-container::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    border-top: 2px solid #4a3525;
+    border-bottom: 2px solid #4a3525;
+    border-left: 2px solid #4a3525;
+    border-radius: 4px 0 0 4px;
+    z-index: 20;
+  }

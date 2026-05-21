@@ -1,8 +1,10 @@
 // SongSelect.jsx
 import React from 'react';
+
 import { BUILTIN_SONGS } from './js/songsData';
 
 export default function SongSelect({ onSelectSong, onGoBack }) {
+
   // 나중에 songsData.js에 곡이 늘어나면 자동으로 이 리스트에 추가됩니다.
   const songList = Object.values(BUILTIN_SONGS);
 
@@ -16,7 +18,7 @@ export default function SongSelect({ onSelectSong, onGoBack }) {
       </div>
 
       <h2 className="orgel-main-title">🎼 플레이할 곡 선택</h2>
-      <p className="orgel-menu-desc">오르골 종이 테이프로 들을 감상 명곡을 골라주세요.</p>
+      <p className="orgel-menu-desc">오르골 종이 테이프로 들을 명곡을 골라주세요.</p>
       
       {/* 곡 리스트 그리드 */}
       <div className="orgel-song-list">
@@ -26,7 +28,7 @@ export default function SongSelect({ onSelectSong, onGoBack }) {
             className="orgel-btn-large" 
             onClick={() => onSelectSong(song)}
           >
-            ✈️ {song.title}
+            {song.title}
           </button>
         ))}
 
@@ -36,7 +38,7 @@ export default function SongSelect({ onSelectSong, onGoBack }) {
           style={{ backgroundColor: '#aaa', cursor: 'default' }} 
           disabled
         >
-          🌟 작은 별 (업데이트 예정)
+          (업데이트 예정)
         </button>
       </div>
     </div>

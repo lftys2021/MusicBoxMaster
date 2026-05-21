@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BUILTIN_SONGS } from './js/songsData';
 import { NOTE_FREQS } from './js/musicConstants'; // 👈 상수 가져오기
 import SheetCanvas from './SheetCanvas'; // 분리 컴포넌트 1
-import OrgelCanvas from './OrgelCanvas'; // 분리 컴포넌트 2
+import OrgelCanvas from './OrgelCylinder'; // 분리 컴포넌트 2
 import SongSelect from './SongSelect'; // 👈 1. 분리한 곡 선택 컴포넌트 임포트
 import './css/OrgelPlayer.css';
 
@@ -155,7 +155,7 @@ export default function OrgelPlayer() {
         />
       )}
 
-      {/* 🧭 3단계: 실제 오르골 및 악보 렌더링 플레이어 화면 */}
+      {/* 🧭 2단계: 실제 오르골 및 악보 렌더링 플레이어 화면 */}
       {viewStage === 'PLAYER' && selectedSong && (
         <>
           <div className="orgel-nav-bar">
@@ -163,7 +163,7 @@ export default function OrgelPlayer() {
           </div>
 
           <h2 className="orgel-title">{selectedSong.title}</h2>
-          <p className="orgel-info">{selectedSong.bpm} BPM | {selectedSong.timeSignature} 박자</p>
+          <p className="orgel-info"> {selectedSong.term} | {selectedSong.bpm} BPM | {selectedSong.timeSignature} 박자</p>
 
           <SheetCanvas 
             song={selectedSong} 
