@@ -1,38 +1,35 @@
-// GrandStaff.jsx
-import React, { useState, useEffect } from 'react';
-import SingleStaff from './SingleStaff'; // 기존 SheetCanvas를 리팩토링한 것
-import './css/GrandStaff.css';
+import React from 'react';
+import SingleStaff from './SingleStaff'; // (구 SheetCanvas)
 
-export default function GrandStaff({ song }) {
-  // 💡 재생 타이머 상태를 부모가 관리합니다.
-  const [currentMeasure, setCurrentMeasure] = useState(0);
-  const [tickPosition, setTickPosition] = useState(0);
-
-  // (여기에 타이머 구동 로직: bpm에 맞춰 tickPosition을 증가시키는 useEffect 위치)
+export default function GrandStaff({ song, currentMeasure, tickPosition }) {
+  // 부모로부터 song이 내려오지 않았다면 렌더링을 잠시 대기하여 에러를 방지합니다.
+  if (!song) return <div className="loading-staff">악보를 불러오는 중...</div>;
 
   return (
-    <div className="grand-staff-container">
-      {/* 1. 위쪽 보표: 오른손 (높은음자리표) */}
-      <SingleStaff 
-        clefType="treble" // 💡 어떤 음자리표를 그릴지 명시
-        keySignature={song.keySignature}
-        timeSignature={song.timeSignature}
-        measures={song.trebleMeasures} // 오른손 데이터 주입
-        totalMeasures={song.totalMeasures}
-        currentMeasure={currentMeasure}
-        tickPosition={tickPosition}
-      />
+    <div className="grand-staff-container" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      
+      {/* 🎼 상단 트랙: 높은음자리표 (오른손) */}
+      <div className="treble-staff-row">
+        <span className="staff-label">Right Hand</span>
+        <SingleStaff 
+          song={song} // 👈 이게 누락되면 자식인 SingleStaff에서 undefined 에러가 납니다!
+          currentMeasure={currentMeasure}
+          tickPosition={tickPosition}
+          clefType="treble" // 높은음자리표 표시용 변수 (커스텀)
+        />
+      </div>
 
-      {/* 2. 아래쪽 보표: 왼손 (낮은음자리표) */}
-      <SingleStaff 
-        clefType="bass" // 💡 낮은음자리표 명시
-        keySignature={song.keySignature}
-        timeSignature={song.timeSignature}
-        measures={song.bassMeasures} // 왼손 데이터 주입
-        totalMeasures={song.totalMeasures}
-        currentMeasure={currentMeasure}
-        tickPosition={tickPosition}
-      />
+      {/* 🎼 하단 트랙: 낮은음자리표 (왼손) */}
+      <div className="bass-staff-row">
+        <span className="staff-label">Left Hand</span>
+        <SingleStaff 
+          song={song} // 👈 여기도 똑같이 안전하게 넘겨줍니다.
+          currentMeasure={currentMeasure}
+          tickPosition={tickPosition}
+          clefType="bass" // 낮은음자리표 표시용 변수 (커스텀)
+        />
+      </div>
+
     </div>
   );
 }

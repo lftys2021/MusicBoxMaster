@@ -34,30 +34,15 @@ function MeasureBox({ measureNotes, measureIndex, isLast, ticksPerMeasure, measu
     const paddingRight = 24; 
     const usableWidth = measureWidth - (paddingLeft + paddingRight); 
 
-    const totalBeats = 4;
-    const pixelsPerTick = usableWidth / totalBeats;
+    const pixelsPerTick = usableWidth / ticksPerMeasure;
 
     measureNotes.forEach(noteItem => {
-      //const noteX = paddingLeft + (noteItem.tick * pixelsPerTick);
+      const noteX = paddingLeft + (noteItem.tick * pixelsPerTick);
       const isRest = noteItem.type.includes('Rest');
       const posStep = isRest ? 4 : (SHEET_NOTE_POSITIONS[noteItem.note] || 4);
-      //const noteY = startY + (posStep * (lineSpacing / 2));
+      const noteY = startY + (posStep * (lineSpacing / 2));
       const isUp = posStep > 4;
 
-      // 1. tick 기반의 위치를 '박자 단위(float)'로 변환합니다. (예: 0틱->0박, 4틱->1박, 12틱->3박)
-      const beatPosition = noteItem.tick / 4; 
-      
-      // 2. 음표가 마디 안에서 한가운데 정렬된 느낌을 주도록 
-      // '음표 자체의 중심점'을 박자 칸의 중앙(half beat)에 맞춰 배치하는 보정을 해줍니다.
-      const centerOffset = pixelsPerTick / 2;
-
-      // 3. 최종 X 좌표 계산
-      const noteX = padding + (beatPosition * pixelsPerBeat) + centerOffset;
-
-      // 4. 이 Y 좌표와 X 좌표로 음표를 그립니다.
-      const noteY = getNoteY(noteItem.note); 
-      
-      
 
       if (isRest) {
         switch (noteItem.type) {

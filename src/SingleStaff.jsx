@@ -79,13 +79,13 @@ function MeasureBox({ measureNotes, measureIndex, isLast, ticksPerMeasure, measu
   return <canvas ref={canvasRef} width={measureWidth} height={105} className="measure-box-canvas" />;
 }
 
-export default function SheetCanvas({ song, currentMeasure, tickPosition }) {
+export default function SheetCanvas({ song, currentMeasure, tickPosition , clefType = 'treble' }) {
   const measureWidth = 260;  
   const ticksPerMeasure = 16; 
   const pixelsPerTick = measureWidth / ticksPerMeasure;
 
   // 1. 현재 곡의 조표 명세 확보
-  const currentKey = song.keySignature || 'C';
+  const currentKey = song?.keySignature || 'C';
   const keyAccidentals = KEY_SIGNATURES[currentKey] || [];
   const accidentalCount = keyAccidentals.length;
 
